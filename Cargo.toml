@@ -1,0 +1,16 @@
+[package]
+name = "image-ndarray"
+version = "0.1.0"
+edition = "2024"
+license = "EUPL-1.2"
+authors = ["Gilles Vink <gillesvink@noreply.codeberg.org>"]
+description = "Implementation for working with and from ndarrays with the Image crate"
+repository = "https://codeberg.org/gillesvink/image-ndarray"
+documentation = "https://docs.rs/image-ndarray"
+keywords = ["image-processing"]
+categories = ["multimedia", "graphics"]
+
+[dependencies]
+ndarray = { version = ">=0.13.0" }
+image = { version = ">=0.24.0", default-features = false }
+thiserror = { version = ">=2.0.0, < 2.1" }
