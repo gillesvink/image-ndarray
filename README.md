@@ -33,7 +33,7 @@ let mut my_image = Rgba32FImage::new(1920, 1080);
 
 assert!(my_image.to_vec() == vec![0.0; 1920 * 1080 * 4]);
 
-let mut array = my_image.as_mut_ndarray();
+let mut array = my_image.as_ndarray_mut();
 array += 1.0;
 
 assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
@@ -48,7 +48,7 @@ let mut my_image = Rgba32FImage::new(1920, 1080);
 let second_image = Rgba32FImage::from_vec(1920, 1080, vec![1.0; 1920 * 1080 * 4]).unwrap();
 assert!(my_image.to_vec() == vec![0.0; 1920 * 1080 * 4]);
 
-let mut array = my_image.as_mut_ndarray();
+let mut array = my_image.as_ndarray_mut();
 array += &second_image.as_ndarray();
 
 assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
@@ -64,7 +64,7 @@ let mut my_image = Rgba32FImage::from_vec(1920, 1080, vec![1.0; 1920 * 1080 * 4]
 let second_image = Rgba32FImage::from_vec(1920, 1080, vec![2.0; 1920 * 1080 * 4]).unwrap();
 assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
 
-let mut array = my_image.as_mut_ndarray();
+let mut array = my_image.as_ndarray_mut();
 array /= &second_image.as_ndarray();
 
 assert!(my_image.to_vec() == vec![0.5; 1920 * 1080 * 4]);

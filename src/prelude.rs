@@ -129,7 +129,7 @@ mod test {
     }
 
     #[test]
-    fn test_as_mut_ndarray() {
+    fn test_as_ndarray_mut() {
         let (width, height, channels) = (256, 128, 4);
         let data = create_test_data(width, height, channels);
         let mut test_image = Rgba32FImage::from_vec(256, 128, data).unwrap();
