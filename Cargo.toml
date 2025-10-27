@@ -7,8 +7,8 @@ authors = ["Gilles Vink <gillesvink@noreply.codeberg.org>"]
 description = "Zero-copy implementations for the Image crate to convert to and from ndarrays"
 repository = "https://codeberg.org/gillesvink/image-ndarray"
 documentation = "https://docs.rs/image-ndarray"
-keywords = ["image-processing"]
-categories = ["multimedia", "graphics"]
+keywords = ["image-processing", "array"]
+categories = ["multimedia", "graphics", "data-structures"]
 
 [dependencies]
 ndarray = { version = ">=0.13.0" }
