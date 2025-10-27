@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1](https://codeberg.org/gillesvink/image-ndarray/compare/v0.1.0...v0.1.1) - 2025-10-27
+
+### Other
+
+- Rename as_mut_ndarray to as_ndarray_mut
+
 ## [0.1.0](https://codeberg.org/gillesvink/image-ndarray/releases/tag/v0.1.0) - 2025-10-27
 
 ### Other
