@@ -11,8 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Other
 
-- Add support for only using NormalizedFloat trait
-- Add float normalizer trait
+- Add NormalizedFloat trait to convert to and from floats to (unsigned) ints
 
 ## [0.1.1](https://codeberg.org/gillesvink/image-ndarray/compare/v0.1.0...v0.1.1) - 2025-10-27
 
