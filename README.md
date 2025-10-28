@@ -93,3 +93,16 @@ let my_image = Rgba32FImage::from_ndarray(array).unwrap();
 
 assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
 ```
+
+And convert an u8 image into a f32 array:
+```rust
+use image_ndarray::prelude::*;
+use ndarray::Array3;
+
+let array = Array3::<u8>::from_elem((1080, 1920, 4), 255);
+let float_array = array.map(|f| f.to_f32_normalized().unwrap());
+
+let max_value = float_array.iter().cloned().fold(f32::MIN, f32::max);
+assert!(max_value == 1.0);
+
+```
