@@ -10,11 +10,15 @@ documentation = "https://docs.rs/image-ndarray"
 keywords = ["image-processing", "array"]
 categories = ["multimedia", "graphics", "data-structures"]
 
+[features]
+default = ["image"]
+image = ["dep:image", "dep:ndarray"]
+
 [dependencies]
-ndarray = { version = ">=0.13.0" }
-image = { version = ">=0.24.0", default-features = false }
-thiserror = { version = ">=2.0.0, < 2.1" }
-num-traits = ">=0.2.0"
+ndarray = { version = ">=0.13.0", optional = true }
+image = { version = ">=0.24.0", default-features = false, optional = true }
+thiserror-no-std = { version = ">=2.0.0, < 2.1" }
+num-traits = { version = ">=0.2.0", default-features = false }
 
 [dev-dependencies]
 rstest = "0.26.1"

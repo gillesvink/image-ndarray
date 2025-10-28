@@ -1,10 +1,15 @@
 //! Implementations for ndarray casting and conversions for the ImageBuffer
 
-use crate::error::{Error, Result};
-use image::{ImageBuffer, Pixel};
-use ndarray::{Array3, ArrayView3, ArrayViewMut, ArrayViewMut3};
 use num_traits::{AsPrimitive, ToPrimitive};
 
+#[cfg(feature = "image")]
+use crate::error::{Error, Result};
+#[cfg(feature = "image")]
+use image::{ImageBuffer, Pixel};
+#[cfg(feature = "image")]
+use ndarray::{Array3, ArrayView3, ArrayViewMut, ArrayViewMut3};
+
+#[cfg(feature = "image")]
 /// Conversion methods for working with ndarrays.
 ///
 /// All methods work without copying any data.
@@ -58,6 +63,7 @@ pub trait ImageArray<P: image::Pixel, ImageContainer> {
     fn from_ndarray(array: Array3<ImageContainer>) -> Result<ImageBuffer<P, Vec<ImageContainer>>>;
 }
 
+#[cfg(feature = "image")]
 impl<P, C> ImageArray<P, C> for ImageBuffer<P, Vec<C>>
 where
     P: Pixel<Subpixel = C>,
@@ -114,7 +120,7 @@ where
 /// Trait for converting the provided value to a normalized float.
 ///
 /// This is used for image processing where a lot of operations rely on floating values.
-pub trait AsNormalizedFloat<T>
+pub trait NormalizedFloat<T>
 where
     T: AsPrimitive<f32> + AsPrimitive<f64>,
 {
@@ -146,7 +152,7 @@ where
     fn from_f64_normalized(value: f64) -> Option<T>;
 }
 
-impl AsNormalizedFloat<f32> for f32 {
+impl NormalizedFloat<f32> for f32 {
     fn to_f32_normalized(&self) -> Option<f32> {
         Some(*self)
     }
@@ -163,7 +169,7 @@ impl AsNormalizedFloat<f32> for f32 {
     }
 }
 
-impl AsNormalizedFloat<f64> for f64 {
+impl NormalizedFloat<f64> for f64 {
     fn to_f32_normalized(&self) -> Option<f32> {
         self.to_f32()
     }
@@ -183,7 +189,7 @@ impl AsNormalizedFloat<f64> for f64 {
 #[macro_export]
 macro_rules! impl_as_float {
     ($type:ty) => {
-        impl AsNormalizedFloat<$type> for $type {
+        impl NormalizedFloat<$type> for $type {
             fn to_f32_normalized(&self) -> Option<f32> {
                 self.to_f32()
                     .map(|converted| converted / <$type>::MAX as f32)
