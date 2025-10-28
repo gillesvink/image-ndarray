@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2](https://codeberg.org/gillesvink/image-ndarray/compare/v0.1.1...v0.1.2) - 2025-10-28
+
+### Other
+
+- Add support for only using NormalizedFloat trait
+- Add float normalizer trait
+
 ## [0.1.1](https://codeberg.org/gillesvink/image-ndarray/compare/v0.1.0...v0.1.1) - 2025-10-27
 
 ### Other
