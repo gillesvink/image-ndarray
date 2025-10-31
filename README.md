@@ -1,4 +1,4 @@
-[![Tests](https://github.com/gillesvink/image-ndarray/actions/workflows/test.yaml/badge.svg)](https://github.com/gillesvink/image-ndarray/actions/workflows/test.yaml) 
+[![Tests](https://ci.codeberg.org/api/badges/15489/status.svg)](https://ci.codeberg.org/repos/15489)
 [![License](https://img.shields.io/crates/l/image-ndarray)](https://crates.io/crates/image-ndarray) 
 [![Version](https://img.shields.io/crates/v/image-ndarray)](https://crates.io/crates/image-ndarray) 
 
