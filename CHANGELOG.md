@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3](https://codeberg.org/gillesvink/image-ndarray/compare/v0.1.2...v0.1.3) - 2025-10-31
+
+### Other
+
+- Replace badge with woodpecker
+- Fix ndarray dependency for no-std
+- Fix ndarray dependency for no-std
+- Merge branch 'main' of ssh://codeberg.org/gillesvink/image-ndarray
+- Add woodpecker test, switch to thiserror and disable tests when image is not enabled
+
 ## [0.1.2](https://codeberg.org/gillesvink/image-ndarray/compare/v0.1.1...v0.1.2) - 2025-10-28
 
 ### Other
