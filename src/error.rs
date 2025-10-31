@@ -12,6 +12,8 @@ pub enum Error {
         "Image could not be constructed from ndarray because output does not match input channel count."
     )]
     ChannelMismatch,
+    #[error("Only 2d and 3d arrays are supported.")]
+    Dimensions,
 }
 
 #[cfg(feature = "image")]

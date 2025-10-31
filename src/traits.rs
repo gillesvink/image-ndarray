@@ -5,7 +5,7 @@ use crate::error::{Error, Result};
 #[cfg(feature = "image")]
 use image::{ImageBuffer, Pixel};
 #[cfg(feature = "image")]
-use ndarray::{Array3, ArrayView3, ArrayViewMut, ArrayViewMut3};
+use ndarray::{Array, Array3, ArrayView3, ArrayViewMut, ArrayViewMut3, Dimension};
 use num_traits::{AsPrimitive, ToPrimitive};
 
 #[cfg(feature = "image")]
@@ -59,7 +59,9 @@ pub trait ImageArray<P: image::Pixel, ImageContainer> {
     /// `array[[y, x, z]]`
     ///
     /// This does not copy the data, but it does consume the buffer.
-    fn from_ndarray(array: Array3<ImageContainer>) -> Result<ImageBuffer<P, Vec<ImageContainer>>>;
+    fn from_ndarray<D: Dimension>(
+        array: Array<ImageContainer, D>,
+    ) -> Result<ImageBuffer<P, Vec<ImageContainer>>>;
 }
 
 #[cfg(feature = "image")]
@@ -87,9 +89,18 @@ where
             )
         }
     }
+    fn from_ndarray<D: Dimension>(mut array: Array<C, D>) -> Result<ImageBuffer<P, Vec<C>>> {
+        let shape = array.shape();
+        if shape.len() < 2 {
+            return Err(Error::Dimensions);
+        };
 
-    fn from_ndarray(mut array: Array3<C>) -> Result<ImageBuffer<P, Vec<C>>> {
-        let (height, width, channels) = array.dim();
+        let (width, height) = (shape[1], shape[0]);
+        let channels = match shape.len() {
+            2 => 1,
+            3 => shape[2],
+            _ => return Err(Error::Dimensions),
+        };
 
         if channels != P::CHANNEL_COUNT.into() {
             return Err(Error::ChannelMismatch);
@@ -222,6 +233,7 @@ impl_as_float!(u8);
 mod tests {
     use super::*;
     use image::{Luma, Rgb32FImage, Rgba32FImage};
+    use ndarray::Array2;
     use rstest::*;
 
     #[test]
@@ -302,6 +314,23 @@ mod tests {
         }
     }
 
+    #[test]
+    fn test_from_ndarray_2d() {
+        let (width, height, channels) = (256, 128, 1);
+        let data = create_test_data(width, height, channels);
+        let test_image = Array2::from_shape_vec((height, width), data).unwrap();
+        println!("{}", test_image.shape().len());
+        let compare_data = test_image.clone();
+
+        let result = ImageBuffer::<Luma<f32>, Vec<f32>>::from_ndarray(test_image).unwrap();
+
+        for (x, y, pixel) in result.enumerate_pixels() {
+            for value in pixel.channels().iter() {
+                assert_eq!(*value, compare_data[[y as usize, x as usize]]);
+            }
+        }
+    }
+
     fn create_test_data(width: usize, height: usize, channels: usize) -> Vec<f32> {
         let total_elements = width * height * channels;
         (0..total_elements).map(|x| (x + 1) as f32).collect()
@@ -316,7 +345,9 @@ mod tests {
         let test_image =
             Array3::from_shape_vec((height as usize, width as usize, channels), data).unwrap();
 
-        let result = Rgb32FImage::from_ndarray(test_image).err().unwrap();
+        let result = Rgb32FImage::from_ndarray(test_image.into_dyn())
+            .err()
+            .unwrap();
 
         assert_eq!(result, Error::ChannelMismatch);
     }
