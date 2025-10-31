@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3](https://codeberg.org/gillesvink/image-ndarray/compare/v0.1.2...v0.1.3) - 2025-10-31
+
+### Other
+
+- Switch to thiserror with conditional `std` feature and disable tests when `image` is not enabled
+
 ## [0.1.2](https://codeberg.org/gillesvink/image-ndarray/compare/v0.1.1...v0.1.2) - 2025-10-28
 
 ### Other
