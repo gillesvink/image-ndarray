@@ -1,13 +1,12 @@
 //! Implementations for ndarray casting and conversions for the ImageBuffer
 
-use num_traits::{AsPrimitive, ToPrimitive};
-
 #[cfg(feature = "image")]
 use crate::error::{Error, Result};
 #[cfg(feature = "image")]
 use image::{ImageBuffer, Pixel};
 #[cfg(feature = "image")]
 use ndarray::{Array3, ArrayView3, ArrayViewMut, ArrayViewMut3};
+use num_traits::{AsPrimitive, ToPrimitive};
 
 #[cfg(feature = "image")]
 /// Conversion methods for working with ndarrays.
@@ -218,6 +217,7 @@ impl_as_float!(u16);
 impl_as_float!(i8);
 impl_as_float!(u8);
 
+#[cfg(feature = "image")]
 #[cfg(test)]
 mod tests {
     use super::*;

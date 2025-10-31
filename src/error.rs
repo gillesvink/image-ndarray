@@ -1,4 +1,4 @@
-use thiserror_no_std::Error;
+use thiserror::Error;
 
 /// Global error object for the image-ndarray crate.
 #[derive(Debug, Error, PartialEq)]
@@ -14,4 +14,5 @@ pub enum Error {
     ChannelMismatch,
 }
 
+#[cfg(feature = "image")]
 pub type Result<T> = core::result::Result<T, Error>;

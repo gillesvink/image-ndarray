@@ -26,72 +26,87 @@ use image_ndarray::prelude::*;
 
 Adding a simple value:
 ```rust
-use image::Rgba32FImage;
-use image_ndarray::prelude::*;
+#[cfg(feature = "image")]
+{
+    use image::Rgba32FImage;
+    use image_ndarray::prelude::*;
 
-let mut my_image = Rgba32FImage::new(1920, 1080);
+    let mut my_image = Rgba32FImage::new(1920, 1080);
 
-assert!(my_image.to_vec() == vec![0.0; 1920 * 1080 * 4]);
+    assert!(my_image.to_vec() == vec![0.0; 1920 * 1080 * 4]);
 
-let mut array = my_image.as_ndarray_mut();
-array += 1.0;
+    let mut array = my_image.as_ndarray_mut();
+    array += 1.0;
 
-assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
+    assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
+}
 ```
 
 Adding another image:
 ```rust
-use image::Rgba32FImage;
-use image_ndarray::prelude::*;
+#[cfg(feature = "image")]
+{
+    use image::Rgba32FImage;
+    use image_ndarray::prelude::*;
 
-let mut my_image = Rgba32FImage::new(1920, 1080);
-let second_image = Rgba32FImage::from_vec(1920, 1080, vec![1.0; 1920 * 1080 * 4]).unwrap();
-assert!(my_image.to_vec() == vec![0.0; 1920 * 1080 * 4]);
+    let mut my_image = Rgba32FImage::new(1920, 1080);
+    let second_image = Rgba32FImage::from_vec(1920, 1080, vec![1.0; 1920 * 1080 * 4]).unwrap();
+    assert!(my_image.to_vec() == vec![0.0; 1920 * 1080 * 4]);
 
-let mut array = my_image.as_ndarray_mut();
-array += &second_image.as_ndarray();
+    let mut array = my_image.as_ndarray_mut();
+    array += &second_image.as_ndarray();
 
-assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
+    assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
+}
 ```
 
 
 Dividing another image (just any math operation supported by [ndarray](https://docs.rs/ndarray/latest/ndarray/struct.ArrayBase.html)):
 ```rust
-use image::Rgba32FImage;
-use image_ndarray::prelude::*;
+#[cfg(feature = "image")]
+{
+    use image::Rgba32FImage;
+    use image_ndarray::prelude::*;
 
-let mut my_image = Rgba32FImage::from_vec(1920, 1080, vec![1.0; 1920 * 1080 * 4]).unwrap();
-let second_image = Rgba32FImage::from_vec(1920, 1080, vec![2.0; 1920 * 1080 * 4]).unwrap();
-assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
+    let mut my_image = Rgba32FImage::from_vec(1920, 1080, vec![1.0; 1920 * 1080 * 4]).unwrap();
+    let second_image = Rgba32FImage::from_vec(1920, 1080, vec![2.0; 1920 * 1080 * 4]).unwrap();
+    assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
 
-let mut array = my_image.as_ndarray_mut();
-array /= &second_image.as_ndarray();
+    let mut array = my_image.as_ndarray_mut();
+    array /= &second_image.as_ndarray();
 
-assert!(my_image.to_vec() == vec![0.5; 1920 * 1080 * 4]);
+    assert!(my_image.to_vec() == vec![0.5; 1920 * 1080 * 4]);
+}
 ```
 
 Convert image to array:
 ```rust 
-use image::Rgba32FImage;
-use image_ndarray::prelude::*;
+#[cfg(feature = "image")]
+{
+    use image::Rgba32FImage;
+    use image_ndarray::prelude::*;
 
-let my_image = Rgba32FImage::from_vec(1920, 1080, vec![1.0; 1920 * 1080 * 4]).unwrap();
-let array = my_image.to_ndarray();
+    let my_image = Rgba32FImage::from_vec(1920, 1080, vec![1.0; 1920 * 1080 * 4]).unwrap();
+    let array = my_image.to_ndarray();
 
-assert!(array.as_slice().unwrap().to_vec() == vec![1.0; 1920 * 1080 * 4]);
+    assert!(array.as_slice().unwrap().to_vec() == vec![1.0; 1920 * 1080 * 4]);
+}
 ```
 
 
-Or just create an image from the provided array:
+Or just create an image from the provided array :
 ```rust
-use image::Rgba32FImage;
-use image_ndarray::prelude::*;
-use ndarray::Array3;
+#[cfg(feature = "image")]
+{
+    use image::Rgba32FImage;
+    use image_ndarray::prelude::*;
+    use ndarray::Array3;
 
-let array = Array3::from_elem((1080, 1920, 4), 1.0);
-let my_image = Rgba32FImage::from_ndarray(array).unwrap();
+    let array = Array3::from_elem((1080, 1920, 4), 1.0);
+    let my_image = Rgba32FImage::from_ndarray(array).unwrap();
 
-assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
+    assert!(my_image.to_vec() == vec![1.0; 1920 * 1080 * 4]);
+}
 ```
 
 And convert an u8 image into a f32 array:
