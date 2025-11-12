@@ -12,7 +12,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Other
 
 - Restrict all dependencies to strict range
-- Restrict ndarray
 
 ## [0.1.4](https://codeberg.org/gillesvink/image-ndarray/compare/v0.1.3...v0.1.4) - 2025-10-31
 
